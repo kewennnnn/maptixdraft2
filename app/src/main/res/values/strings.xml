@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MAPTIX</string>
+    <string name="addnewitemsbutton">Add new items</string>
+    <string name="generatemap">Generate map</string>
+    <string name="categoryhint">Enter Category</string>
+    <string name="itemhint">Enter Item</string>
+    <string name="quantityhint">Enter quantity</string>
+</resources>
