@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "927559498710",
+    "firebase_url": "https://maptixdraft2.firebaseio.com",
+    "project_id": "maptixdraft2",
+    "storage_bucket": "maptixdraft2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927559498710:android:691ffd95a5478e49a5c277",
+        "android_client_info": {
+          "package_name": "com.example.maptixdraft2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927559498710-04umfdd01ffesobh4fbt2p1spl1n08t6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maptixdraft2",
+            "certificate_hash": "ba884983f0e46f747efa6514e139c7f449c4ada7"
+          }
+        },
+        {
+          "client_id": "927559498710-952aauj5ajn975pr28ppooor2s15cj07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNv-GBIyt0lHOQs3jo7HKJUEzzIRkHblQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927559498710-952aauj5ajn975pr28ppooor2s15cj07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

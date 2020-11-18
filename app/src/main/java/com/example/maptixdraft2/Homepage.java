@@ -2,6 +2,7 @@ package com.example.maptixdraft2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -34,5 +35,16 @@ public class Homepage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("TAG", "Log pause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

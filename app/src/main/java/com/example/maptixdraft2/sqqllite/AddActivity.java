@@ -74,7 +74,7 @@ public class AddActivity extends AppCompatActivity {
 
         DatabaseReference categorydatabase = FirebaseDatabase.getInstance().getReference("Categories");
         //create new array to store categories
-        final ArrayList<String> categories = new ArrayList<>();
+
         System.out.println(categorydatabase); //check 1
         //create a new arrayadapter with simple layout
         final ArrayAdapter categoryadapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
@@ -82,8 +82,8 @@ public class AddActivity extends AppCompatActivity {
         categorydatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String categorylist = snapshot.toString();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //iterate through the category list
+                    String categorylist = snapshot.getValue().toString(); //convert to string
                     categoryadapter.add(categorylist);
                 }
             }
