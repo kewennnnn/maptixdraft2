@@ -113,7 +113,7 @@ public class AddActivity extends AppCompatActivity {
 
         DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("Categories");
         Log.i(tag , "get chocolate items from firebase");
-        final ArrayList<String> chocolateitemslist = new ArrayList<>();
+        final ArrayList<String> chocolateitemslist = new ArrayList<>(); //store the list of chocolates in list
 
         chocolatedatabase.child("Chocolate").addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,7 +142,7 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
-
+//check for user input if chocolate, set the dropdown list to be chocolates
         items_atv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
