@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -35,7 +36,7 @@ public class AddActivity extends AppCompatActivity {
     DatabaseReference userdatabaseReference; //to access sub elements of root nodes
 
     //TO BE DONE: RETRIEVE FROM SQL DATABASE THE LIST OF ITEMS IN PICK AND GO
-//    String[] categories = new String[] {"Dairy", "Seafood" , "Vegetables", "Fruits"}; // to be obtain from the database later for autosuggest options
+    String[] categories2 = new String[] {"Dairy", "Seafood" , "Vegetables", "Fruits"}; // to be obtain from the database later for autosuggest options
 //    String[] DAIRY_items = new String[] {"MEIJI MILK", "LACTASOY" , "ICE CREAM"}; // to be obtain from the database later for autosuggest options
 //    String[] SEAFOOD_items = new String[] {"COD", "GROUPER" , "BATANG"}; // to types of seafood from the database
 
@@ -72,20 +73,68 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference categorydatabase = FirebaseDatabase.getInstance().getReference("Categories");
+        DatabaseReference categorydatabase = FirebaseDatabase.getInstance().getReference().child("Categories");               ;
         //create new array to store categories
-
         System.out.println(categorydatabase); //check 1
         //create a new arrayadapter with simple layout
-        final ArrayAdapter categoryadapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
-
+        final ArrayList<String> categories = new ArrayList<>();
         categorydatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //iterate through the category list
-                    String categorylist = snapshot.getValue().toString(); //convert to string
-                    categoryadapter.add(categorylist);
+                    //String categorylist = snapshot.getValue().toString(); //convert to string
+                    String categorylist = snapshot.getKey();
+                    //String categorylist = snapshot.child("Chocolate");
+                    categories.add(categorylist);
+
                 }
+
+                String[] new_categories = new String[categories.size()];
+                for (int i =0; i<categories.size();i++){
+                    new_categories[i] = categories.get(i);
+                    Log.i("jh", categories.get(i));
+                }
+
+                final ArrayAdapter categoryadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, new_categories);
+                categories_atv.setAdapter(categoryadapter);
+
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+        DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("Categories");
+        Log.i(tag , "get chocolate items from firebase");
+        final ArrayList<String> chocolateitemslist = new ArrayList<>();
+
+        chocolatedatabase.child("Chocolate").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot itemsnapshot: dataSnapshot.getChildren()) {
+
+                    String items = itemsnapshot.getKey();
+                    chocolateitemslist.add(items);
+                    Log.i("Chocolate items", items);
+                    //Log.i(tag, String.valueOf(itemslist));
+
+                }
+                chocolateitemslist.remove("location");
+                Log.i("Chocolate items", String.valueOf(chocolateitemslist));
+
+                String categories = categories_atv.getText().toString();
+                Log.i("Category input", categories);
+                Log.i("Category input", String.valueOf(categories_atv.getItemSelectedListener()));
+
+
+
             }
 
             @Override
@@ -94,10 +143,26 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        categories_atv.setAdapter(categoryadapter);
+        items_atv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                        if(categories_atv.getText().toString().equals("Chocolate")) {
+                Log.i(tag,"Clicked on items");
+                final ArrayAdapter chocolateadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item,chocolateitemslist);
+                items_atv.setAdapter(chocolateadapter);
+                //}
+
+            }
+        });
 
 
-//        categories_atv.setAdapter(new ArrayAdapter<>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, categories)); //auto suggest the list of array
+        //String[] new_categories3 = categories.toArray(String[]::new);
+        //final ArrayAdapter categoryadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, new_categories2);
+        //categories_atv.setAdapter(categoryadapter);
+
+
+        //categories_atv.setAdapter(new ArrayAdapter<>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, categories2)); //auto suggest the list of array
 //
 //         if (categories_atv.getText().toString().equals("Dairy")) {
 //                items_atv.setAdapter(new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, DAIRY_items)); //check if categories is dairy, if yes show
