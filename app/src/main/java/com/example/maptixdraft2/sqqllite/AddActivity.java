@@ -28,7 +28,7 @@ import java.util.UUID;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class AddActivity extends AppCompatActivity {
-    AutoCompleteTextView categories_atv,items_atv,quantityatv;
+    AutoCompleteTextView items_atv,quantityatv;
     Button add_button;
     String tag = "TAG";
 
@@ -60,7 +60,6 @@ public class AddActivity extends AppCompatActivity {
 
                 //pass the values into the constructor
                 //Get the values from the autotextfield
-                String categories = categories_atv.getText().toString();
                 String items = items_atv.getText().toString();
                 String quantity = quantityatv.getText().toString();
                 UUID listname = UUID.randomUUID();
@@ -75,11 +74,11 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference categorydatabase = FirebaseDatabase.getInstance().getReference().child("Categories");               ;
+        DatabaseReference categorydatabase = FirebaseDatabase.getInstance().getReference().child("Items");               ;
         //create new array to store categories
         System.out.println(categorydatabase); //check 1
         //create a new arrayadapter with simple layout
-        final ArrayList<String> categories = new ArrayList<>();
+        final ArrayList<String> items = new ArrayList<>();
         categorydatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -87,18 +86,18 @@ public class AddActivity extends AppCompatActivity {
                     //String categorylist = snapshot.getValue().toString(); //convert to string
                     String categorylist = snapshot.getKey();
                     //String categorylist = snapshot.child("Chocolate");
-                    categories.add(categorylist);
+                    items.add(categorylist);
 
                 }
 
-                String[] new_categories = new String[categories.size()];
-                for (int i =0; i<categories.size();i++){
-                    new_categories[i] = categories.get(i);
-                    Log.i("jh", categories.get(i));
+                String[] new_categories = new String[items.size()];
+                for (int i =0; i<items.size();i++){
+                    new_categories[i] = items.get(i);
+                    Log.i("jh", items.get(i));
                 }
 
                 final ArrayAdapter categoryadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item, new_categories);
-                categories_atv.setAdapter(categoryadapter);
+                items_atv.setAdapter(categoryadapter);
 
             }
 
@@ -113,50 +112,50 @@ public class AddActivity extends AppCompatActivity {
 
 
 
-        DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("");
-        Log.i(tag , "get chocolate items from firebase");
-        final ArrayList<String> chocolateitemslist = new ArrayList<>(); //store the list of chocolates in list
-
-        chocolatedatabase.child("Chocolate").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot itemsnapshot: dataSnapshot.getChildren()) {
-
-                    String items = itemsnapshot.getKey();
-                    chocolateitemslist.add(items);
-                    Log.i("Chocolate items", items);
-                    //Log.i(tag, String.valueOf(itemslist));
-
-                }
-                chocolateitemslist.remove("location");
-                Log.i("Chocolate items", String.valueOf(chocolateitemslist));
-
-                String categories = categories_atv.getText().toString();
-                Log.i("Category input", categories);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Log.i("Yew", String.valueOf(chocolateitemslist));
+//        DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("");
+//        Log.i(tag , "get chocolate items from firebase");
+//        final ArrayList<String> chocolateitemslist = new ArrayList<>(); //store the list of chocolates in list
+//
+//        chocolatedatabase.child("Chocolate").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot itemsnapshot: dataSnapshot.getChildren()) {
+//
+//                    String items = itemsnapshot.getKey();
+//                    chocolateitemslist.add(items);
+//                    Log.i("Chocolate items", items);
+//                    //Log.i(tag, String.valueOf(itemslist));
+//
+//                }
+//                chocolateitemslist.remove("location");
+//                Log.i("Chocolate items", String.valueOf(chocolateitemslist));
+//
+//                String categories = items_atv.getText().toString();
+//                Log.i("Category input", categories);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//        Log.i("Yew", String.valueOf(chocolateitemslist));
 //check for user input if chocolate, set the dropdown list to be chocolates
 
-
-        items_atv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                        if(categories_atv.getText().toString().equals("Chocolate")) {
-                Log.i(tag,"Clicked on items");
-                final ArrayAdapter chocolateadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item,chocolateitemslist);
-                items_atv.setAdapter(chocolateadapter);
-                //}
-
-            }
-        });
+//
+//        items_atv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                        if(categories_atv.getText().toString().equals("Chocolate")) {
+//                Log.i(tag,"Clicked on items");
+//                final ArrayAdapter chocolateadapter = new ArrayAdapter<String>(AddActivity.this, R.layout.support_simple_spinner_dropdown_item,chocolateitemslist);
+//                items_atv.setAdapter(chocolateadapter);
+//                //}
+//
+//            }
+//        });
 
 
         //String[] new_categories3 = categories.toArray(String[]::new);
