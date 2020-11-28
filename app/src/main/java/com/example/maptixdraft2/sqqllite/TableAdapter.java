@@ -55,7 +55,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
             super(itemView);
 
             items_tv = itemView.findViewById(R.id.item_tv);
-            quantity_tv = itemView.findViewById(R.id.quantity_tv)
+            quantity_tv = itemView.findViewById(R.id.quantity_tv);
         }
     }
 }
