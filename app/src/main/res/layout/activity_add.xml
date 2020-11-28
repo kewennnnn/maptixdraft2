@@ -8,19 +8,6 @@
     android:padding="30dp">
 
     <AutoCompleteTextView
-        android:id="@+id/Categoryname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="137dp"
-        android:ems="10"
-        android:hint="@string/categoryhint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/Itemname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <AutoCompleteTextView
         android:id="@+id/Itemname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,7 +16,6 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/quantity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Categoryname"
         app:layout_constraintStart_toStartOf="parent" />
 
     <AutoCompleteTextView

@@ -46,7 +46,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        categories_atv =  findViewById(R.id.Categoryname);
+
         items_atv = findViewById(R.id.Itemname);
         quantityatv = findViewById(R.id.quantity);
         add_button = findViewById(R.id.add_button);
@@ -65,8 +65,10 @@ public class AddActivity extends AppCompatActivity {
                 String quantity = quantityatv.getText().toString();
                 UUID listname = UUID.randomUUID();
 
-                UserHelper helperClass = new UserHelper(categories, items, quantity); //create new constructor
-                userdatabaseReference.child(String.valueOf(listname)).setValue(helperClass);
+                //id by date and time
+
+                UserHelper helperClass = new UserHelper(items, quantity); //create new constructor
+                userdatabaseReference.child("User").child("Kewen").push().setValue(helperClass);
 
                 Toast.makeText(AddActivity.this,  "Added succesfully" , Toast.LENGTH_SHORT).show();
 
@@ -111,7 +113,7 @@ public class AddActivity extends AppCompatActivity {
 
 
 
-        DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("Categories");
+        DatabaseReference chocolatedatabase = FirebaseDatabase.getInstance().getReference().child("");
         Log.i(tag , "get chocolate items from firebase");
         final ArrayList<String> chocolateitemslist = new ArrayList<>(); //store the list of chocolates in list
 
@@ -131,9 +133,6 @@ public class AddActivity extends AppCompatActivity {
 
                 String categories = categories_atv.getText().toString();
                 Log.i("Category input", categories);
-                Log.i("Category input", String.valueOf(categories_atv.getItemSelectedListener()));
-
-
 
             }
 
@@ -142,7 +141,10 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
+        Log.i("Yew", String.valueOf(chocolateitemslist));
 //check for user input if chocolate, set the dropdown list to be chocolates
+
+
         items_atv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

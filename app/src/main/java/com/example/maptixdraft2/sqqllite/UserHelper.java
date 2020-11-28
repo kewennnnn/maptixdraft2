@@ -4,25 +4,17 @@ import android.widget.AutoCompleteTextView;
 
 public class UserHelper {
 
-    String categories, items , quantity;
+    String items , quantity;
 
     public UserHelper(){
 
     }
 
-    public UserHelper(String categories, String items, String quantity) {
-        this.categories = categories;
+    public UserHelper( String items, String quantity) {
         this.items = items;
         this.quantity = quantity;
     }
 
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
-    }
 
     public String getItems() {
         return items;
