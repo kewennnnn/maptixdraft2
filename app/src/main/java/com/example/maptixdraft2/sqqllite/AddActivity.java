@@ -27,14 +27,33 @@ public class AddActivity extends AppCompatActivity {
         quantity_atv = findViewById(R.id.quantity);
         add_button = findViewById(R.id.add_button);
 
+        final Firebase.booleanCallbackInterface addItemCallback = new Firebase.booleanCallbackInterface() {
+            @Override
+            public void onCallback(boolean itemExists) {
+                if (itemExists) {
+                    String itemEntered = items_atv.getText().toString(); //Get the values from the autotextfield
+                    String qtyEntered = quantity_atv.getText().toString();
+                    if (qtyEntered.equals("")) {
+                        qtyEntered = "-"; // if the user does not enter a quantity, we display a dash instead
+                    }
+                    ListItem newItemObject = new ListItem(itemEntered, qtyEntered); //create new constructor
+                    Firebase.addItem(newItemObject,"Kewen"); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
+                    Toast.makeText(AddActivity.this, "Item added successfully" , Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddActivity.this, "This item is not available at this supermarket!", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String items = items_atv.getText().toString(); //Get the values from the autotextfield
-                String quantity = quantity_atv.getText().toString();
-                ListItem newItemObject = new ListItem(items, quantity); //create new constructor
-                Firebase.addItem(newItemObject,"Kewen"); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
-                Toast.makeText(AddActivity.this,  "Added successfully" , Toast.LENGTH_SHORT).show();
+                String itemEntered = items_atv.getText().toString(); //Get the values from the autotextfield
+                if (itemEntered.isEmpty()) {
+                    Toast.makeText(AddActivity.this, "Please enter an item name", Toast.LENGTH_LONG).show();
+                } else {
+                    Firebase.itemAvailability(addItemCallback,itemEntered);
+                }
             }
         });
 
