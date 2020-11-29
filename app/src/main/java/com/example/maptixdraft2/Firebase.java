@@ -3,7 +3,6 @@ package com.example.maptixdraft2;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
-import com.example.maptixdraft2.sqqllite.ListItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

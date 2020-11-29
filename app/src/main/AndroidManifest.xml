@@ -13,7 +13,7 @@
         <activity android:name=".Homepage"
             android:label="Homepage"
             android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".sqqllite.AddActivity"
+        <activity android:name=".AddActivity"
             android:label="Add Grocery items"
             android:parentActivityName=".Homepage"></activity>
         <activity android:name=".MainActivity">

@@ -1,4 +1,4 @@
-package com.example.maptixdraft2.sqqllite;
+package com.example.maptixdraft2;
 
 import android.widget.AutoCompleteTextView;
 
