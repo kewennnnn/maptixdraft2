@@ -2,15 +2,15 @@ package com.example.maptixdraft2.sqqllite;
 
 import android.widget.AutoCompleteTextView;
 
-public class UserHelper {
+public class ListItem {
 
     String items , quantity;
 
-    public UserHelper(){
+    public ListItem(){
 
     }
 
-    public UserHelper( String items, String quantity) {
+    public ListItem(String items, String quantity) {
         this.items = items;
         this.quantity = quantity;
     }

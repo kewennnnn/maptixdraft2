@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +16,9 @@ import java.util.List;
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> {
 
     Context context;
-    List<UserHelper> user_HelperList;
+    List<ListItem> user_HelperList;
 
-    public TableAdapter(Context context,List<UserHelper> user_HelperList) {
+    public TableAdapter(Context context,List<ListItem> user_HelperList) {
         this.context = context;
         this.user_HelperList = user_HelperList;
     }
@@ -35,7 +34,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(user_HelperList != null && user_HelperList.size() > 0) {
-            UserHelper helper = user_HelperList.get(position);
+            ListItem helper = user_HelperList.get(position);
             holder.items_tv.setText(helper.getItems());
             holder.quantity_tv.setText(helper.getQuantity());
         } else{
