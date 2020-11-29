@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +44,7 @@ public class Homepage extends AppCompatActivity {
 //            }
 //        };
 
-        Firebase.userhelperCallbackInterface displayShoppingListCallback = new Firebase.userhelperCallbackInterface() {
+        Firebase.listitemCallbackInterface displayShoppingListCallback = new Firebase.listitemCallbackInterface() {
             @Override
             public void onCallback(List<ListItem> myList) {
                 Log.i("Kewen","inside displayShoppingListCallback, myList received is "+ myList);
