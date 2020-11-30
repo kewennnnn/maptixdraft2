@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
-public class Homepage extends AppCompatActivity {
+public class Homepage extends AppCompatActivity  {
     RecyclerView recyclerView;
     Button add_new_item;
     Button generate_map;
@@ -24,31 +29,47 @@ public class Homepage extends AppCompatActivity {
 
         add_new_item = findViewById(R.id.add_new_items_button);
         generate_map = findViewById(R.id.generatemap_button);
-        recyclerView = findViewById(R.id.grocery_list_recyclerview);
 
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //for deleting entries
-//        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                Snackbar snackbar = Snackbar.make(, "Item Deleted", Snackbar.LENGTH_SHORT);
-//            }
-//        };
+            recyclerView = findViewById(R.id.grocery_list_recyclerview);
+            recyclerView.hasFixedSize();
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
+
+
 
         Firebase.listitemCallbackInterface displayShoppingListCallback = new Firebase.listitemCallbackInterface() {
             @Override
-            public void onCallback(List<ListItem> myList) {
+            public void onCallback(final List<ListItem> myList) {
                 Log.i("Kewen","inside displayShoppingListCallback, myList received is "+ myList);
-                TableAdapter tableAdapter = new TableAdapter(Homepage.this, myList);
+                final TableAdapter tableAdapter = new TableAdapter(Homepage.this, myList);
                 recyclerView.setAdapter(tableAdapter);
+
+
                 Log.i("Kewen","tableAdapter set!");
+
+                //for deleting entries
+                ItemTouchHelper.SimpleCallback item_delete = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
+                        tableAdapter.notifyDataSetChanged();
+
+                        Toast.makeText(Homepage.this, "Item deleted" , Toast.LENGTH_SHORT).show();
+                    }
+                };
+                //to remove from the recycler view the item swiped
+                new ItemTouchHelper(item_delete).attachToRecyclerView(recyclerView);
+                //To do: delete item from firebase
+
             }
         };
         Firebase.displayShoppingList(displayShoppingListCallback,"Kewen"); //to trigger recyclerView to display user's shopping list retrieved from firebase

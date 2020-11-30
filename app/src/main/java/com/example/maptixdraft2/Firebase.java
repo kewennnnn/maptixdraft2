@@ -60,7 +60,7 @@ public class Firebase {
     }
 
     public static void displayItemSuggestions(final callbackInterface callbackAction) {
-        DatabaseReference itemsDatabaseReference = myDatabaseRef.child("items");
+        DatabaseReference itemsDatabaseReference = myDatabaseRef.child("Items");
         itemsDatabaseReference.addValueEventListener(new ValueEventListener() {
             final ArrayList<String> itemsArraylist = new ArrayList<>();
             @Override
