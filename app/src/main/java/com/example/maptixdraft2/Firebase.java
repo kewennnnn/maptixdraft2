@@ -55,7 +55,31 @@ public class Firebase {
             }
         });
     }
+    
+    public static void displayItemToEdit(final stringCallbackInterface callbackAction, final int itemIndex, final String username) {
+        DatabaseReference userDatabaseReference = myDatabaseRef.child("Users").child(username);
+        userDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int itemCount = 0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Log.i("Kewen edit","current index: "+itemCount);
+                    if (itemCount==itemIndex) {
+                        String itemName = snapshot.getKey();
+                        Log.i("Kewen edit",itemName+" with index "+itemIndex+" was detected for editing");
+                        callbackAction.onCallback(itemName); // callback here
+                        break;
+                    }
+                    itemCount += 1;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+    
     public static void itemAvailability(final booleanCallbackInterface callbackAction, final String itemName) {
         DatabaseReference itemsDatabaseReference = myDatabaseRef.child("items");
         itemsDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -135,6 +159,9 @@ public class Firebase {
     }
     interface booleanCallbackInterface {
         void onCallback(boolean bool);
+    }
+    interface stringCallbackInterface {
+        void onCallback(String str);
     }
 
 }
