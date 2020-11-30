@@ -33,9 +33,27 @@ public class Firebase {
         Log.i("Kewen","Item Removed! "+itemName);
     }
 
-    public static void deleteItem(ListItem itemObject, String username) {
-        String itemName = itemObject.getItems();
-        deleteItem(itemName, username);
+    public static void deleteItem(final int itemIndex, final String username) {
+        DatabaseReference userDatabaseReference = myDatabaseRef.child("Users").child(username);
+        userDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int itemCount = 0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    if (itemCount==itemIndex) {
+                        String itemName = snapshot.getKey();
+                        Log.i("Kewen delete",itemName+" with index "+itemIndex+" was detected to delete");
+                        deleteItem(itemName, username);
+                        break;
+                    }
+                    itemCount += 1;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static void itemAvailability(final booleanCallbackInterface callbackAction, final String itemName) {
