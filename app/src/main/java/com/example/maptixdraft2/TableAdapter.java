@@ -47,6 +47,10 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
         return user_HelperList.size() ;
     }
 
+    public void removeItem(int position) {
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView items_tv,quantity_tv;
 

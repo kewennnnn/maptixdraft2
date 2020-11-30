@@ -10,7 +10,7 @@
     <TableRow>
 
 
-        <TextView
+        <EditText
             android:id="@+id/item_tv"
 
             android:textSize="16dp"
@@ -24,7 +24,7 @@
             />
 
 
-        <TextView
+        <EditText
             android:id="@+id/quantity_tv"
             android:textSize="16dp"
             android:textStyle="bold"

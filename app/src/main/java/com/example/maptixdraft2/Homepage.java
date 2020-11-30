@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.List;
 
 public class Homepage extends AppCompatActivity  {
@@ -31,12 +29,10 @@ public class Homepage extends AppCompatActivity  {
         generate_map = findViewById(R.id.generatemap_button);
 
 
-            recyclerView = findViewById(R.id.grocery_list_recyclerview);
-            recyclerView.hasFixedSize();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
+        recyclerView = findViewById(R.id.grocery_list_recyclerview);
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Utils.hideSoftKeyboard(this);
 
 
 
@@ -62,6 +58,9 @@ public class Homepage extends AppCompatActivity  {
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
                         tableAdapter.notifyDataSetChanged();
+//                        int position = viewHolder.getLayoutPosition();
+//                        Log.i("Kewen delete", "LayoutPosition is " + position);
+//                        Firebase.deleteItem(position,"Kewen");
 
                         Toast.makeText(Homepage.this, "Item deleted" , Toast.LENGTH_SHORT).show();
                     }
@@ -69,6 +68,9 @@ public class Homepage extends AppCompatActivity  {
                 //to remove from the recycler view the item swiped
                 new ItemTouchHelper(item_delete).attachToRecyclerView(recyclerView);
                 //To do: delete item from firebase
+
+                //toeditthetextview
+
 
             }
         };
