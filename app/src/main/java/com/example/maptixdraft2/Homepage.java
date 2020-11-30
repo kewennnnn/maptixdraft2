@@ -52,6 +52,7 @@ public class Homepage extends AppCompatActivity  {
                 Log.i("Kewen","tableAdapter set!");
 
                 //for deleting entries
+
                 ItemTouchHelper.SimpleCallback item_delete = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -62,9 +63,12 @@ public class Homepage extends AppCompatActivity  {
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
                         int position = viewHolder.getLayoutPosition(); //gets index of the viewholder being swiped
-                        
+
                         switch (direction) {
                             case ItemTouchHelper.LEFT:
+                                String deleteditem = null;
+                                deleteditem = myList.get(position).getItems();
+                                Log.i("Test for item", deleteditem );
                                 myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
                                 tableAdapter.notifyDataSetChanged();
 
