@@ -60,12 +60,23 @@ public class Homepage extends AppCompatActivity  {
 
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                        myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
-                        tableAdapter.notifyDataSetChanged();
+
                         int position = viewHolder.getLayoutPosition(); //gets index of the viewholder being swiped
-                        Log.i("Kewen delete","LayoutPosition is "+position);
-                        Firebase.deleteItem(position, "Kewen"); //delete item based on index
-                        Toast.makeText(Homepage.this, "Item deleted" , Toast.LENGTH_SHORT).show();
+                        
+                        switch (direction) {
+                            case ItemTouchHelper.LEFT:
+                                myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
+                                tableAdapter.notifyDataSetChanged();
+
+                                Log.i("Kewen delete","LayoutPosition is "+ position);
+                                Firebase.deleteItem(position, "Kewen"); //delete item based on index
+                                Toast.makeText(Homepage.this, "Item deleted" , Toast.LENGTH_SHORT).show();
+                                break;
+
+                                case ItemTouchHelper.RIGHT:
+                                    break;
+
+                        }
                     }
                 };
                 //to remove from the recycler view the item swiped
