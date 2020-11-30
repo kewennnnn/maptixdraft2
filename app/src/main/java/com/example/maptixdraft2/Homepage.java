@@ -31,15 +31,17 @@ public class Homepage extends AppCompatActivity  {
         generate_map = findViewById(R.id.generatemap_button);
 
 
-            recyclerView = findViewById(R.id.grocery_list_recyclerview);
-            recyclerView.hasFixedSize();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.grocery_list_recyclerview);
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-
-
-
+        final Firebase.stringCallbackInterface displayItemToEditCallback = new Firebase.stringCallbackInterface() {
+            @Override
+            public void onCallback(String itemName) {
+                // use the input "itemName" here and do whatever you want with it (eg. setting text in a textview)
+            }
+        };
 
         Firebase.listitemCallbackInterface displayShoppingListCallback = new Firebase.listitemCallbackInterface() {
             @Override
@@ -52,7 +54,6 @@ public class Homepage extends AppCompatActivity  {
                 Log.i("Kewen","tableAdapter set!");
 
                 //for deleting entries
-
                 ItemTouchHelper.SimpleCallback item_delete = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -66,9 +67,6 @@ public class Homepage extends AppCompatActivity  {
 
                         switch (direction) {
                             case ItemTouchHelper.LEFT:
-                                String deleteditem = null;
-                                deleteditem = myList.get(position).getItems();
-                                Log.i("Test for item", deleteditem );
                                 myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
                                 tableAdapter.notifyDataSetChanged();
 
@@ -77,15 +75,16 @@ public class Homepage extends AppCompatActivity  {
                                 Toast.makeText(Homepage.this, "Item deleted" , Toast.LENGTH_SHORT).show();
                                 break;
 
-                                case ItemTouchHelper.RIGHT:
-                                    break;
+                            case ItemTouchHelper.RIGHT:
+                                Firebase.displayItemToEdit(displayItemToEditCallback, position, "Kewen");
+                                break;
 
                         }
                     }
                 };
                 //to remove from the recycler view the item swiped
                 new ItemTouchHelper(item_delete).attachToRecyclerView(recyclerView);
-                //To do: delete item from firebase
+
 
             }
         };
